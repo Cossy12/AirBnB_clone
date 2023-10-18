@@ -1,5 +1,5 @@
-
 #!/usr/bin/python3
+
 
 import os
 import sys
@@ -12,7 +12,8 @@ from unittest.mock import patch
 
 
 class TestHBNBCommand_prompting(unittest.TestCase):
-
+    """tests for testing prompting
+    of the HBNB command interpreter."""
 
     def trial_prompt_string(self):
         self.assertEqual("(hbnb) ", HBNBCommand.prompt)
@@ -24,27 +25,28 @@ class TestHBNBCommand_prompting(unittest.TestCase):
 
 
 class TestHBNBCommand_help(unittest.TestCase):
+    """tests for testing help messages of the HBNB command interpreter."""
 
-    def trial_ass_quit(self):
+    def trial_help_quit(self):
         h = "Quit command to exit the program."
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help quit"))
             self.assertEqual(h, output.getvalue().strip())
 
-    def trial_ass_create(self):
+    def trial_help_create(self):
         h = ("Usage: create <class>\n        "
              "Create a new class instance and print its id.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help create"))
             self.assertEqual(h, output.getvalue().strip())
 
-    def trial_ass_EOF(self):
+    def trial_help_EOF(self):
         h = "EOF signal to exit the program."
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help EOF"))
             self.assertEqual(h, output.getvalue().strip())
 
-    def trial_ass_show(self):
+    def trial_help_show(self):
         h = ("Usage: show <class> <id> or <class>.show(<id>)\n        "
              "Display the string representation of a class instance of"
              " a given id.")
@@ -52,14 +54,14 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("help show"))
             self.assertEqual(h, output.getvalue().strip())
 
-    def trial_ass_destroy(self):
+    def trial_help_destroy(self):
         h = ("Usage: destroy <class> <id> or <class>.destroy(<id>)\n        "
              "Delete a class instance of a given id.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help destroy"))
             self.assertEqual(h, output.getvalue().strip())
 
-    def trial_ass_all(self):
+    def trial_help_all(self):
         h = ("Usage: all or all <class> or <class>.all()\n        "
              "Display string representations of all instances of a given class"
              ".\n        If no class is specified, displays all instantiated "
@@ -68,14 +70,14 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("help all"))
             self.assertEqual(h, output.getvalue().strip())
 
-    def trial_ass_count(self):
+    def trial_help_count(self):
         h = ("Usage: count <class> or <class>.count()\n        "
              "Retrieve the number of instances of a given class.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help count"))
             self.assertEqual(h, output.getvalue().strip())
 
-    def trial_ass_update(self):
+    def trial_help_update(self):
         h = ("Usage: update <class> <id> <attribute_name> <attribute_value> or"
              "\n       <class>.update(<id>, <attribute_name>, <attribute_value"
              ">) or\n       <class>.update(<id>, <dictionary>)\n        "
@@ -95,6 +97,7 @@ class TestHBNBCommand_help(unittest.TestCase):
 
 
 class TestHBNBCommand_exit(unittest.TestCase):
+    """tests for testing exiting from the HBNB command interpreter."""
 
     def trial_quit_exits(self):
         with patch("sys.stdout", new=StringIO()) as output:
@@ -106,6 +109,7 @@ class TestHBNBCommand_exit(unittest.TestCase):
 
 
 class TestHBNBCommand_create(unittest.TestCase):
+    """tests for testing create from the HBNB command interpreter."""
 
     @classmethod
     def setUp(self):
@@ -126,19 +130,19 @@ class TestHBNBCommand_create(unittest.TestCase):
         except IOError:
             pass
 
-    def trial_recrt_missing_class(self):
+    def trial_create_missing_class(self):
         correct = "** class name missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create"))
             self.assertEqual(correct, output.getvalue().strip())
 
-    def trial_recrt_invalid_class(self):
+    def trial_create_invalid_class(self):
         correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create MyModel"))
             self.assertEqual(correct, output.getvalue().strip())
 
-    def trial_recrt_invalid_syntax(self):
+    def trial_create_invalid_syntax(self):
         correct = "*** Unknown syntax: MyModel.create()"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.create()"))
@@ -148,7 +152,7 @@ class TestHBNBCommand_create(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("BaseModel.create()"))
             self.assertEqual(correct, output.getvalue().strip())
 
-    def trial_recrt_object(self):
+    def trial_create_object(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
             self.assertLess(0, len(output.getvalue().strip()))
@@ -187,7 +191,7 @@ class TestHBNBCommand_create(unittest.TestCase):
 
 
 class TestHBNBCommand_show(unittest.TestCase):
-    """Unittests for testing show from the HBNB command interpreter"""
+    """tests for testing show from the HBNB command interpreter"""
 
     @classmethod
     def setUp(self):
