@@ -85,6 +85,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, args):
+        "Delete a class  id."
         args = args.split()
         if not args:
             print("** class name missing **")
@@ -111,6 +112,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, args):
+        "Usage: all or all <class> .all()\n        "
 
         args = args.split(" ")
         class_name = args[0]
@@ -168,14 +170,15 @@ class HBNBCommand(cmd.Cmd):
             return
 
     def do_precmd(self, args):
-
-        _cmd = _cls = _id = _args = ''  
+        """Reformat  syntax.
+        """
+        _cmd = _cls = _id = _args = ''  # initialize line elements
 
         if not ('.' in args and '(' in args and ')' in args):
             return args
 
         try:  
-            fnpline = args[:] 
+            fnpline = args[:]  # parsed line
 
             _cls = fnpline[:fnpline.find('.')]
 

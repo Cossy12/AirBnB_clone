@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""  model"""
+""" model - storage model"""
 
 import json
 from datetime import datetime
@@ -38,12 +38,13 @@ class FileStorage:
                 FileStorage.__objects = json.loads(f.
                                                    read(),
                                                    object_hook=self.
-                                                   format_to_python)
+                                                   json_to_python)
         except FileNotFoundError:
             pass
 
     @staticmethod
-    def format_to_python(json_dict):
+    def json_to_python(json_dict):
+        """  json loads"""
         if "__class__" in json_dict:
             class_name = json_dict["__class__"]
             if class_name == "BaseModel":
